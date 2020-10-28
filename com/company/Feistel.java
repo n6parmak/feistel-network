@@ -107,4 +107,55 @@ public class Feistel {
         }
         return inputs;
     }
+
+    public String feistel_EBC(String input,String key,boolean isEnc){
+
+     String output="";
+     ArrayList<String> keys = Subkey_Generation(key);
+     ArrayList<String> inputs = input_generator(input);
+     ArrayList<String> func_output = new ArrayList<String>();
+     //Encription
+     if(isEnc){
+         for (String plaintext:inputs) {
+             String l ="";
+             String r ="";
+             String l0=plaintext.substring(0,(plaintext.length()/2));
+             String r0=plaintext.substring((plaintext.length()/2));
+             for(int i=1;i<=10;i++){
+                 l = r0;
+                 r = XOR(l0,scramble_function(r0,keys.get(i-1)));
+                 r0 = r;
+                 l0 = l;
+             }
+             func_output.add((l+r));
+         }
+     }
+     //Decription
+     else{
+         for (String ciphertext:inputs){
+             String l = "";
+             String r = "";
+             String l0 = ciphertext.substring(0,(ciphertext.length()/2));
+             String r0 = ciphertext.substring((ciphertext.length()/2));
+             for(int i=10;i>=1;i--){
+                 l = XOR(r0,scramble_function(l0,keys.get(i-1)));
+                 r = l0;
+                 r0 = r;
+                 l0 = l;
+             }
+             func_output.add((l+r));
+         }
+
+     }
+
+        for (String out:func_output) {
+            output+=out;
+        }
+
+        return output;
+
+     }
+
+
+
 }
