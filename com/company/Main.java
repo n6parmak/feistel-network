@@ -12,9 +12,11 @@ public class Main {
 
         String Key ="";
         Feistel feistel = new Feistel();
-        Key = feistel.base64_decoder(Key);
-        ArrayList<String> sub_keys = feistel.subkey_generation(Key);
+        Key = feistel.Base64_Decoder(Key);
+        ArrayList<String> sub_keys = feistel.Subkey_Generation(Key);
         System.out.println("Subkeys: " + sub_keys);
+
+        feistel.scramble_function("111010111011000111110010111101000011001111010100","000101100111011111101001011101100100110110010111");
 
         System.out.println(permutation_func("10101010"));
         boolean isEnc = args[1].equals("enc"); // true for encryption false for decryption
