@@ -1,5 +1,6 @@
 package com.company;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class Feistel {
 
@@ -27,5 +28,18 @@ public class Feistel {
             }
         }
         return keys;
+    }
+
+    public String base64_decoder(String encodedString){
+        String key_bits = "";
+        Base64.Decoder decoder = Base64.getDecoder();
+        byte[] bytes = decoder.decode(encodedString);
+        for ( int i = 0 ; i < bytes.length; i++){
+            String output = String.format("%8s", Integer.toBinaryString((int) bytes[i])).replace(' ', '0');
+            key_bits += output;
+        }
+        System.out.println("keyin bit hali:  " + key_bits);
+        System.out.println("keyin decode edilmiş hali:  " + new String(bytes));
+        return key_bits;
     }
 }

@@ -1,19 +1,20 @@
 package com.company;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         //getting arguments and file reading
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        String Key ="";
         Feistel feistel = new Feistel();
-        ArrayList keys = feistel.subkey_generation("0123456789");
-        System.out.println(keys);
+        Key = feistel.base64_decoder(Key);
+        ArrayList<String> sub_keys = feistel.subkey_generation(Key);
+        System.out.println("Subkeys: " + sub_keys);
 
         System.out.println(permutation_func("10101010"));
         boolean isEnc = args[1].equals("enc"); // true for encryption false for decryption
@@ -38,7 +39,7 @@ public class Main {
             }
         }
 
-       try (Scanner input = new Scanner(new File(inputPath));
+       /*try (Scanner input = new Scanner(new File(inputPath));
 
              PrintWriter output = new PrintWriter(new File(outputPath));
              Scanner keyFile = new Scanner(new File(keyPath))) {
@@ -47,9 +48,9 @@ public class Main {
             }**/
 
 
-       } catch (FileNotFoundException e) {
+       /*} catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
