@@ -1,15 +1,22 @@
 package com.company;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Main {
 
     public static void main(String[] args) {
         //getting arguments and file reading
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        String Key ="";
+        Feistel feistel = new Feistel();
+        Key = feistel.base64_decoder(Key);
+        ArrayList<String> sub_keys = feistel.subkey_generation(Key);
+        System.out.println("Subkeys: " + sub_keys);
+
+        System.out.println(permutation_func("10101010"));
         boolean isEnc = args[1].equals("enc"); // true for encryption false for decryption
         String keyPath="";
         String inputPath="";
@@ -32,29 +39,31 @@ public class Main {
             }
         }
 
-       try (Scanner input = new Scanner(new File(inputPath));
+       /*try (Scanner input = new Scanner(new File(inputPath));
              PrintWriter output = new PrintWriter(new File(outputPath));
              Scanner keyFile = new Scanner(new File(keyPath))) {
             /** while (scanner.hasNext()) {
                 //writer.print(scanner.nextLine());
             }**/
-        } catch (FileNotFoundException e) {
+
+
+       /*} catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
     }
     public static String permutation_func(String input){
-
         String dummy = "";
-        for(int i=0;i<(input.length()/2)+2;i=i+2){
-           dummy+=input.charAt(i+1);
-           dummy+=input.charAt(i);
+        for(int i=0;i<=(input.length()/2)+2;i=i+2){
+            dummy+=input.charAt(i+1);
+            dummy+=input.charAt(i);
         }
         input = dummy;
         return input;
     }
-
 
 }
