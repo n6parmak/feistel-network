@@ -10,7 +10,6 @@ public class Main {
     public static void main(String[] args) {
         //getting arguments and file reading
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        System.out.println(permutation_func("10101010"));
         boolean isEnc = args[1].equals("enc"); // true for encryption false for decryption
         String keyPath="";
         String inputPath="";
@@ -45,8 +44,6 @@ public class Main {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
     }
     public static String permutation_func(String input){
 
@@ -58,5 +55,6 @@ public class Main {
         input = dummy;
         return input;
     }
+
 
 }
