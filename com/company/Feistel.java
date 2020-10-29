@@ -156,6 +156,66 @@ public class Feistel {
 
      }
 
+     public String feistel_CBC(String input,String key,boolean isEnc){
+         String output="";
+         ArrayList<String> keys = Subkey_Generation(key);
+         ArrayList<String> inputs = input_generator(input);
+         ArrayList<String> func_output = new ArrayList<String>();
+         String iv="";
+         for (int i=0;i<96;i++) iv+="1";
+         func_output.add(iv);
+
+         if(isEnc){
+             int counter=0;
+             for (String plaintext:inputs) {
+                 plaintext = XOR(func_output.get(counter),plaintext);
+                 String l ="";
+                 String r ="";
+                 String l0=plaintext.substring(0,(plaintext.length()/2));
+                 String r0=plaintext.substring((plaintext.length()/2));
+                 counter++;
+                 for(int i=1;i<=10;i++){
+                     l = r0;
+                     r = XOR(l0,scramble_function(r0,keys.get(i-1)));
+                     r0 = r;
+                     l0 = l;
+                 }
+                 func_output.add((l+r));
+             }
+         }
+         //Decription
+         else{
+             ArrayList<String> ciphers = new ArrayList<String>();
+             ciphers.add(iv);
+             int counter=0;
+             for (String ciphertext:inputs){
+                 String l = "";
+                 String r = "";
+                 String l0 = ciphertext.substring(0,(ciphertext.length()/2));
+                 String r0 = ciphertext.substring((ciphertext.length()/2));
+                 ciphers.add(ciphertext);
+                 for(int i=10;i>=1;i--){
+                     l = XOR(r0,scramble_function(l0,keys.get(i-1)));
+                     r = l0;
+                     r0 = r;
+                     l0 = l;
+                 }
+                 func_output.add(XOR(ciphers.get(0),(l+r)));
+                 counter++;
+             }
+
+         }
+
+         for (String out:func_output) {
+             output+=out;
+         }
+
+
+
+
+         return output;
+     }
+
 
 
 }
