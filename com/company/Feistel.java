@@ -115,19 +115,7 @@ public class Feistel {
     }
 
     public ArrayList<String> input_generator(String input,boolean isEnc){
-        if(isEnc) {
-            byte[] bytes = input.getBytes();
-            String binary = "";
-            for (byte b : bytes) {
-                int val = b;
-                for (int i = 0; i < 8; i++) {
-                    binary += ((val & 128) == 0 ? 0 : 1);
-                    val <<= 1;
-                }
 
-            }
-            input = binary;
-        }
         while(input.length()%96!=0){
             input+="0";
         }
