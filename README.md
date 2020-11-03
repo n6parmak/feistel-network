@@ -1,2 +1,2 @@
 # feistel-network
-Feistel network implementation with EBC, CBC, OFB modes.
+Java implementation for Feistel Network with EBC, CBC, OFB modes.
